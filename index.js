@@ -1,8 +1,8 @@
 const express = require("express");
 const next = require("next");
 
-// const dev = process.env.NODE_ENV !== "production";
-// const app = next({ dev });
+const dev = process.env.NODE_ENV !== "production";
+const app = next({ dev });
 // const app = next({});
 // const handle = app.getRequestHandler();
 
@@ -10,28 +10,23 @@ const next = require("next");
 //     console.log(process.memoryUsage());
 // }, 1000);
 
-// async function startServer() {
-//     try {
-//         await app.prepare();
-//         const server = express();
+app.prepare()
+.then(() => {
+  const server = express()
 
-//         // security - like to not display the backend is built on express ;)
-//         server.disable("x-powered-by");
+  server.get('*', (req, res) => {
+    return handle(req, res)
+  })
 
-//         server.get("*", (req, res) => {
-//             return handle(req, res);
-//         });
-
-//         server.listen();
-//     } catch (error) {
-//         console.log(error.stack);
-//         process.exit(1);
-//     }
-// }
-// startServer();
+  server.listen()
+})
+.catch((ex) => {
+  console.error(ex.stack)
+  process.exit(1)
+})
 
 
-const app = express();
+// const app = express();
 
-app.get("/", (req, res) => res.status(200).json("works fine"));
-app.listen()
+// app.get("/", (req, res) => res.status(200).json("works fine"));
+// app.listen()
