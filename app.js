@@ -17,10 +17,7 @@ async function startServer() {
             return handle(req, res);
         });
 
-        server.listen(3000, (err) => {
-            if (err) throw err;
-            console.log(`Running on ${3000}`);
-        });
+        server.listen();
     } catch (error) {
         console.log(error.stack);
         process.exit(1);
