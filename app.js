@@ -1,8 +1,9 @@
 const express = require("express");
 const next = require("next");
 
-const dev = process.env.NODE_ENV !== "production";
-const app = next({ dev });
+// const dev = process.env.NODE_ENV !== "production";
+// const app = next({ dev });
+const app = next({})
 const handle = app.getRequestHandler();
 
 async function startServer() {
